@@ -1,0 +1,29 @@
+<div class="container" [ngClass]="getBackgroundClass()">
+  <h1>🌤 Weather App</h1>
+
+  <input type="text" [(ngModel)]="city" placeholder="Enter city">
+  <button (click)="getWeather()">Get Weather</button>
+  <button (click)="useLocation()">Use My Location</button>
+  <button (click)="addFavorite()">⭐ Save City</button>
+
+  <div *ngIf="favorites.length">
+    <h3>Favorites</h3>
+    <ul>
+      <li *ngFor="let fav of favorites">
+        <button (click)="loadFavorite(fav)">{{ fav }}</button>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <div *ngIf="weatherData">
+    <h2>{{ weatherData.name }}</h2>
+    <img [src]="'http://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'">
+    <p>🌡 Temp: {{ weatherData.main.temp }} °C</p>
+    <p>☁ Condition: {{ weatherData.weather[0].description }}</p>
+    <p>💨 Wind: {{ weatherData.wind.speed }} m/s</p>
+    <p>💧 Humidity: {{ weatherData.main.humidity }} %</p>
+  </div>
+</div>
